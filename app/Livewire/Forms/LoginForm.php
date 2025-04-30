@@ -12,11 +12,12 @@ use Livewire\Form;
 
 class LoginForm extends Form
 {
-    // #[Validate('required|regex:/^(06|07)[0-9]{8}$/')]
-    // public string $tel = '';
-    // protected $rules = [
-    //     'phone' => ['required', 'regex:/^(06|07)[0-9]{8}$/']
-    // ];
+    // |regex:/^(06|07)[0-9]{8}$/
+    // #[Validate('required')]
+    public string $tel = '';
+    protected $rules = [
+        'tel' => ['required', 'regex:/^(06|07)[0-9]{8}$/']
+    ];
 
     #[Validate('required|string')]
     public string $password = '';
@@ -31,9 +32,10 @@ class LoginForm extends Form
      */
     public function authenticate(): void
     {
-        // dd("here");
+        // $this->validate();
+        dump("loginForm");
         $this->ensureIsNotRateLimited();
-
+        
         if (! Auth::attempt($this->only(['tel', 'password']), $this->remember)) {
             RateLimiter::hit($this->throttleKey());
 

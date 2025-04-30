@@ -224,6 +224,8 @@ class DatabaseSeeder extends Seeder
         $seedFields($appart->id, [
             ['name'=>Str::snake('etage'),'label'=>'Étage','type'=>'number','required'=>true,'options'=>[]],
         ]);
-
+        $this->call([
+            UsersSeeder::class
+        ]);
     }
 }

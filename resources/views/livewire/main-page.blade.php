@@ -14,10 +14,17 @@
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto align-items-center gap-3">
                     <li class="nav-item">
-                        <a class="nav-link text-dark fw-medium px-3 py-2 rounded d-flex align-items-center" href="/login">
-                            <i class="bi bi-box-arrow-in-right me-2"></i>
-                            Se connecter
-                        </a>
+                        @auth
+                            <a class="nav-link text-dark fw-medium px-3 py-2 rounded d-flex align-items-center" href="{{ route('profile') }}">
+                                <i class="bi bi-person-circle me-2"></i>
+                                {{ auth()->user()->prenom }}
+                            </a>
+                        @else
+                            <a class="nav-link text-dark fw-medium px-3 py-2 rounded d-flex align-items-center" href="/login">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>
+                                Se connecter
+                            </a>
+                        @endauth
                     </li>
                     <li class="nav-item">
                         <button class="btn btn-primary px-4 py-2 fw-bold shadow-sm d-flex align-items-center">
