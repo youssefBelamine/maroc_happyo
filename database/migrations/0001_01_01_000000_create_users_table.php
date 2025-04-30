@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('prenom');
             // $table->string('email')->unique();
             $table->string('tel')->unique();
-            $table->string('ville');
-            $table->string('mote_de_passe');
+            $table->foreignId('ville_id')->constrained();
+            $table->string('password');
             $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
