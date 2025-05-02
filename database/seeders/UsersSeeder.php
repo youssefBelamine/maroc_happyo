@@ -20,5 +20,11 @@ class UsersSeeder extends Seeder
             "ville_id" => 5,
             "password" => bcrypt("112233445"),
         ]);
+        User::create([
+            "prenom" => "oussama",
+            "tel" => "0611223345",
+            "ville_id" => 5,
+            "password" => bcrypt("1122334455"),
+        ]);
     }
 }

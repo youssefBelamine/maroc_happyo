@@ -19,6 +19,7 @@ class AdminMiddleware
         // Check if user is authenticated and is an admin
         // dd(Auth::user()->is_admin);
         if (Auth::hasUser() && Auth::user()->is_admin) {
+            // dd("adminMiddleware");
             // dd($next($request));
             return $next($request);
         }

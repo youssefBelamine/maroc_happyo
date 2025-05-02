@@ -33,10 +33,11 @@ class LoginForm extends Form
     public function authenticate(): void
     {
         // $this->validate();
-        dump("loginForm");
+        // dump("loginForm1");
         $this->ensureIsNotRateLimited();
         
         if (! Auth::attempt($this->only(['tel', 'password']), $this->remember)) {
+            // dump("loginForm2");
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([

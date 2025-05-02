@@ -14,14 +14,15 @@ new #[Layout('layouts.guest')] class extends Component
      */
     public function login(): void
     {
-        dump("login");
+        // dump("login1");
         $this->validate();
-
+        
         $this->form->authenticate();
+        // dump("login2");
 
         Session::regenerate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: false);
     }
 }; ?>
 
