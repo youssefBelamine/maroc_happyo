@@ -210,10 +210,6 @@ class DatabaseSeeder extends Seeder
                 ['name'=>Str::snake('chambres'),'label'=>'Chambres','type'=>'number','required'=>true,'options'=>[]],
                 ['name'=>Str::snake('salons'),'label'=>'Salons','type'=>'number','required'=>true,'options'=>[]],
                 ['name'=>Str::snake('Salle de bain'),'label'=>'Salle de bain','type'=>'number','required'=>true,'options'=>[]],
-                ['name'=>Str::snake('Nombre_etage'),'label'=>'Nombre d\'étage','type'=>'number','required'=>true,'options'=>[]],
-                ['name'=>Str::snake('Surface'),'label'=>'Surface en m2','type'=>'number','required'=>true,'options'=>[]],
-                ['name'=>Str::snake('age du bien'),'label'=>'Âge du bien','type'=>'radio','required'=>true,'options'=>$age_du_bien],
-                ['name'=>Str::snake('Condition'),'label'=>'Condition','type'=>'radio','required'=>true,'options'=>$Condition],
             ]);
         }
 
@@ -224,6 +220,16 @@ class DatabaseSeeder extends Seeder
         $seedFields($appart->id, [
             ['name'=>Str::snake('etage'),'label'=>'Étage','type'=>'number','required'=>true,'options'=>[]],
         ]);
+
+        foreach ([$maison, $appart] as $cat) {
+            $seedFields($cat->id, [
+                ['name'=>Str::snake('Surface'),'label'=>'Surface en m2','type'=>'number','required'=>true,'options'=>[]],
+                ['name'=>Str::snake('age du bien'),'label'=>'Âge du bien','type'=>'radio','required'=>true,'options'=>$age_du_bien],
+                ['name'=>Str::snake('Condition'),'label'=>'Condition','type'=>'radio','required'=>true,'options'=>$Condition],
+            ]);
+        }
+
+
         $this->call([
             UsersSeeder::class
         ]);

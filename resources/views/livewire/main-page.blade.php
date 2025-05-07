@@ -134,6 +134,38 @@
                 </div>
             </div>
             @endif
+
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    <!-- Repeat your announcement card component -->
+                    <div class="col">
+                        @foreach($announcements as $announcement)
+    <x-annonce-card 
+        name="{{ $announcement->user->name }}"
+        since="{{ $announcement->created_at->diffInDays() }}"
+        image="{{ $announcement->images->first()->url ?? 'fallback-image.jpg' }}"
+        imagesNumber="{{ $announcement->images->count() }}"
+        category="{{ $announcement->category->name }}"
+        city="{{ $announcement->city->name }}"
+        territory="{{ $announcement->territory->name }}"
+        title="{{ $announcement->title }}"
+        price="{{ $announcement->price }}"
+    />
+@endforeach
+                    </div>
+                    {{-- <div class="col">
+                        <x-annonce-card />
+                    </div>
+                    <div class="col">
+                        <x-annonce-card />
+                    </div>
+                    <div class="col">
+                        <x-annonce-card />
+                    </div> --}}
+                    <!-- Add more cards as needed -->
+                </div>
+            </div>
+
         </div>
     </main>
 </div>

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('announces', function (Blueprint $table) {
             $table->id();
-            $table->string("addresse");
+            $table->string("addresse")->nullable();
             $table->string("tel");
             $table->double("prix");
             $table->string("titre_annonce");
