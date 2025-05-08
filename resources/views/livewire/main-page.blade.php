@@ -77,7 +77,7 @@
                     <button 
                         wire:click="resetChildren"
                         type="button" 
-                        class="btn btn-outline-primary px-4 py-2 rounded-pill fw-bold d-flex align-items-center"
+                        class="btn {{$catId == null ? "btn-primary" : "btn-outline-primary"  }} px-4 py-2 rounded-pill fw-bold d-flex align-items-center"
                     >
                         <i class="bi bi-grid-fill me-2"></i>
                         Tout
@@ -86,7 +86,7 @@
                         <button 
                             wire:click="getChildren({{ $cat->id }}, '{{$cat->name}}')"
                             type="button" 
-                            class="btn btn-outline-primary px-4 py-2 rounded-pill fw-bold d-flex align-items-center gap-2"
+                            class="btn {{$catId == $cat->id ? "btn-primary" : "btn-outline-primary"  }} px-4 py-2 rounded-pill fw-bold d-flex align-items-center gap-2"
                         >
                             <i class="bi bi-tag-fill me-1"></i>
                             {{ $cat->name }}
@@ -100,7 +100,7 @@
             
             <!-- Subcategories Section with icons -->
             @if ($children)
-            <div class="bg-white p-4 rounded-3 shadow-sm mb-4">
+                <div class="bg-white p-4 rounded-3 shadow-sm mb-4">
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-3">
                     <h3 class="h5 mb-0 text-success fw-semibold d-flex align-items-center">
                         <i class="bi bi-diagram-2-fill me-2"></i>
@@ -111,6 +111,7 @@
                         <button
                         wire:click="goBack"
                         class="btn btn-success px-3 py-2 rounded-pill fw-bold d-flex align-items-center shadow-sm"
+                        style=" margin-right: 50px;"
                         >
                         <i class="bi bi-arrow-left-circle-fill me-1 fs-5"></i>
                         <span class="position-relative" style="top: 1px;">Retour</span>
@@ -121,7 +122,7 @@
                             <button 
                                 wire:click="getChildren({{ $child->id }}, '{{$child->name}}', '{{true}}')"
                                 type="button" 
-                                class="btn btn-outline-success px-4 py-2 rounded-pill fw-bold d-flex align-items-center gap-2"
+                                class="btn  {{$catId == $child->id ? "btn-success" : "btn-outline-success"  }} px-4 py-2 rounded-pill fw-bold d-flex align-items-center gap-2"
                             >
                                 <i class="bi bi-tag me-1"></i>
                                 {{ $child->name }}
@@ -132,14 +133,19 @@
                         @endforeach
                     </div>
                 </div>
-            </div>
+                </div>
             @endif
+            {{-- {{$currentId}} / {{$catId}} --}}
+
+            {{-- @foreach ($IDs_category_and_children as $id)
+                <span> / {{$id}} </span>
+            @endforeach --}}
 
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
                     <!-- Repeat your announcement card component -->
                     <div class="col">
-                        @foreach($announcements as $announcement)
+                        {{-- @foreach($announcements as $announcement)
     <x-annonce-card 
         name="{{ $announcement->user->name }}"
         since="{{ $announcement->created_at->diffInDays() }}"
@@ -151,7 +157,7 @@
         title="{{ $announcement->title }}"
         price="{{ $announcement->price }}"
     />
-@endforeach
+@endforeach --}}
                     </div>
                     {{-- <div class="col">
                         <x-annonce-card />

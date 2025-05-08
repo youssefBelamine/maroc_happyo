@@ -23,21 +23,25 @@ require __DIR__.'/auth.php';
 
 Route::get("test", function (){return view("test");});
 Route::get("cat", function (){
-    // $roots = Categorie::with('children.children')
-    // ->whereNull('parent_id')
-    // ->get();
-    // foreach ($roots as $root){
-    //      dump($root->name);
-    //     }
-    // dd(null ? "manalchay" : "raha null");
-    // $previousCat = DB::table("categories")
-    //     ->where("id", 4)
-    //     ->get();
+    $result = [];
 
-    //     dd($previousCat[0]->id);
-    $x = [];
-    $x[1] = "one";
-    $x[2] = "two";
-    $x[3] = "three";
-    dd($x);
+    $fetchLeafChildren = function($parentId) use (&$result, &$fetchLeafChildren) {
+        $children = DB::table('categories')->where('parent_id', $parentId)->get();
+
+        foreach ($children as $child) {
+            $hasChildren = DB::table('categories')->where('parent_id', $child->id)->exists();
+
+            if ($hasChildren) {
+                // Recurse deeper if it has children
+                $fetchLeafChildren($child->id);
+            } else {
+                // It’s a leaf node
+                $result[] = $child->id;
+            }
+        }
+    };
+
+    $fetchLeafChildren(1);
+
+     dd($result);
     });
