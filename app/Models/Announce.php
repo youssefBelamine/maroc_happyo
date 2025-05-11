@@ -16,7 +16,8 @@ class Announce extends Model
     protected $guarded = ["id"];
 
     public function user(): BelongsTo
-    {
+    {   
+        // dd("here");
         return $this->belongsTo(User::class);
     }
 

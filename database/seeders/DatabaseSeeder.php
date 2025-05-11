@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Announce;
+use App\Models\AnnounceImage;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use App\Models\Ville;
@@ -9,6 +11,7 @@ use App\Models\Secteur;
 use App\Models\Categorie;
 use App\Models\ChampsCat;
 use App\Models\OptionChamp;
+use App\Models\ValeursChamp;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,40 +22,41 @@ class DatabaseSeeder extends Seeder
     {
         // 1. Moroccan cities and secteurs
         $moroccanCities = [
-            'Casablanca' => ['Maarif', 'Anfa', 'Ain Chock', 'Sidi Bernoussi', 'Hay Hassani', 'Ben M\'sik',
+            'Casablanca' => ['Autre secteur', 'Maarif', 'Anfa', 'Ain Chock', 'Sidi Bernoussi', 'Hay Hassani', 'Ben M\'sik',
                 'Sidi Moumen', 'Ain Sebaa', 'Al Fida', 'Mers Sultan', 'Sbata', 'Sidi Othmane',
                 'Moulay Rachid', 'Oulfa', 'Hay Mohammadi', 'Errahma', 'Tamaris', 'Dar Bouazza'],
-            'Rabat' => ['Agdal-Ryad', 'Yacoub El Mansour', 'Hassan', 'Souissi', 'El Youssoufia', 'Touarga',
+            'Rabat' => ['Autre secteur', 'Agdal-Ryad', 'Yacoub El Mansour', 'Hassan', 'Souissi', 'El Youssoufia', 'Touarga',
                 'Hay Nahda', 'Hay Riad', 'Hay Al Fath', 'Akkari', 'L\'Ocean', 'Takaddoum', 'Salé Annexe'],
-            'Salé' => ['Tabriquet', 'Bettana', 'Sidi Moussa', 'Laayayda', 'Hssaine', 'Hay Salam',
+            'Salé' => ['Autre secteur', 'Tabriquet', 'Bettana', 'Sidi Moussa', 'Laayayda', 'Hssaine', 'Hay Salam',
                 'Hay Inbiaat', 'Hay Essalam', 'Bouknadel', 'Sidi Bouknadel', 'Sala Al Jadida'],
-            'Marrakech' => ['Medina', 'Gueliz', 'Menara', 'Sidi Youssef Ben Ali', 'Annakhil', 'Daoudiate',
+            'Marrakech' => ['Autre secteur', 'Medina', 'Gueliz', 'Menara', 'Sidi Youssef Ben Ali', 'Annakhil', 'Daoudiate',
                 'Chrifia', 'Massira', 'Azli', 'Bab Doukkala', 'Targa', 'Samih', 'Ait Ourir'],
-            'Fes' => ['aouinat hajjaj', 'Fes El Bali', 'Fes Jdid', 'Agdal', 'Sais', 'Zouagha', 'Dar Dbibegh', 'Jnane Sbile',
+            'Fes' => ['Autre secteur', 'aouinat hajjaj', 'Fes El Bali', 'Fes Jdid', 'Agdal', 'Sais', 'Zouagha', 'Dar Dbibegh', 'Jnane Sbile',
                 'Mont Fleuri', 'Laymoune', 'Oued Fes', 'Bensouda', 'Ain Kadous', 'Ras El Ma'],
-            'Tangier' => ['Marshan', 'Iberia', 'Malabata', 'Charf', 'Beni Makada', 'Ziaten', 'Dradeb', 'Casabarata',
+            'Tangier' => ['Autre secteur', 'Marshan', 'Iberia', 'Malabata', 'Charf', 'Beni Makada', 'Ziaten', 'Dradeb', 'Casabarata',
                 'Tanja Balia', 'Gzenaya', 'Achakar', 'Souani', 'Mesnana', 'Mghogha'],
-            'Agadir' => ['Talborjt', 'Hay Mohammadi', 'Dakhla', 'Anza', 'Bensergao', 'Tilila', 'Tikiouine',
+            'Agadir' => ['Autre secteur', 'Talborjt', 'Hay Mohammadi', 'Dakhla', 'Anza', 'Bensergao', 'Tilila', 'Tikiouine',
                 'Amsernat', 'Cité Suisse', 'Founty', 'Quartier Industriel', 'Aghroud', 'Inezgane'],
-            'Oujda' => ['Ville Nouvelle', 'Sidi Yahya', 'El Qods', 'Hay Al Amal', 'Hay Al Jadid',
+            'Oujda' => ['Autre secteur', 'Ville Nouvelle', 'Sidi Yahya', 'El Qods', 'Hay Al Amal', 'Hay Al Jadid',
                 'Beni Oukil', 'Hay Al Andalous', 'Hay Isly', 'Sidi Ziane', 'Sidi Maafa'],
-            'Meknes' => ['Hamria', 'Medina', 'Marjane', 'Sidi Bouzekri', 'Touarga', 'Ouislane',
+            'Meknes' => ['Autre secteur', 'Hamria', 'Medina', 'Marjane', 'Sidi Bouzekri', 'Touarga', 'Ouislane',
                 'Bassatine', 'Ain Slougui', 'Toulal', 'Zitouna', 'Ain Choubik'],
-            'Kenitra' => ['Maamora', 'Ouled Oujih', 'Bir Rami', 'La Ville Haute', 'Mehdia',
+            'Kenitra' => ['Autre secteur', 'Maamora', 'Ouled Oujih', 'Bir Rami', 'La Ville Haute', 'Mehdia',
                 'Hay Salam', 'Hay Oulad M\'barek', 'Hay Saknia', 'Hay Wifak', 'Hay Massira'],
-            'Tetouan' => ['Medina', 'Martil', 'Fnideq', 'Azla', 'M\'diq', 'Souani', 'Dar Akouba',
+            'Tetouan' => ['Autre secteur', 'Medina', 'Martil', 'Fnideq', 'Azla', 'M\'diq', 'Souani', 'Dar Akouba',
                 'Sania', 'Oued Laou', 'Aouinat El Mellouk', 'Beni Harchen'],
-            'Mohammedia' => ['Hay Al Alia', 'Hay Al Amal', 'Hay Al Wafa', 'Sablettes',
+            'Mohammedia' => ['Autre secteur', 'Hay Al Alia', 'Hay Al Amal', 'Hay Al Wafa', 'Sablettes',
                 'La Siesta', 'Al Massira', 'Mimosas', 'Errahma', 'Lotissement Najah'],
-            'El Jadida' => ['Centre Ville', 'Hay Essalam', 'Hay El Hana', 'Sidi Bouzid', 'Hay Mazagan',
+            'El Jadida' => ['Autre secteur', 'Centre Ville', 'Hay Essalam', 'Hay El Hana', 'Sidi Bouzid', 'Hay Mazagan',
                 'Hay El Baraka', 'Derb Ghalef', 'Doukkala', 'Hay Ennakhil', 'Hay Massira'],
-            'Nador' => ['Selouane', 'Beni Ansar', 'Zaio', 'Al Aroui', 'Bouarfa', 'Ihaddaden',
+            'Nador' => ['Autre secteur', 'Selouane', 'Beni Ansar', 'Zaio', 'Al Aroui', 'Bouarfa', 'Ihaddaden',
                 'Tiztoutine', 'Midar', 'Beni Chiker', 'Zeghanghane'],
-            'Settat' => ['Hay Al Amal', 'Hay Ennakhil', 'Hay Salam', 'Hay Massira', 'Oulad Sghir',
+            'Settat' => ['Autre secteur', 'Hay Al Amal', 'Hay Ennakhil', 'Hay Salam', 'Hay Massira', 'Oulad Sghir',
                 'Hay Belair', 'Hay Ennasr', 'Sidi Hajjaj', 'Kasbat Ben Ahmed', 'Hay Slaoui'],
-            'Beni Mellal' => ['Hay Al Massira', 'Hay El Qods', 'Hay Ennakhil', 'Hay Salam', 'Hay Al Fath',
+            'Beni Mellal' => ['Autre secteur', 'Hay Al Massira', 'Hay El Qods', 'Hay Ennakhil', 'Hay Salam', 'Hay Al Fath',
                 'Dar Bouazza', 'Hay Azhar', 'Oulad Yaich', 'Hay Mghila', 'Bouqroum'],
         ];
+        
         foreach ($moroccanCities as $villeName => $secteurs) {
             $ville = Ville::create(['ville' => $villeName]);
             foreach ($secteurs as $secteur) {
@@ -137,15 +141,7 @@ class DatabaseSeeder extends Seeder
             ['name'=>'marque_pc','label'=>'Choisissez la marque de lordinateur','type'=>'select','required'=>true,'options'=>["Apple","Dell","HP","Lenovo","Asus","Acer","MSI","Razer","Microsoft","Samsung","Huawei","LG","Toshiba","Sony","Panasonic","Alienware","Gigabyte","Google","Xiaomi","Fujitsu"]],
         ]);
         
-        // Shared fields (prix, titre_annonce, texte_annonce)
-
-        // foreach ([$Electromenager, $equipement, $supplement, $ordinateurs, $phones, $voiture, $moto, $velo] as $cat){
-        //     $seedFields($cat->id, [
-        //         ['name'=>'prix','label'=>'Prix','type'=>'number','required'=>true,'options'=>[]],
-        //         ['name'=>'titre_annonce','label'=>'Titre de l\'annonce','type'=>'text','required'=>true,'options'=>[]],
-        //         ['name'=>'texte_annonce','label'=>'Texte de l\'annonce','type'=>'textarea','required'=>false,'options'=>[]],
-        //     ]);
-        // }
+        
 
          // Shared "etat" field
         foreach ([$Electromenager, $equipement, $ordinateurs, $phones, $moto, $voiture] as $cat) {
@@ -229,9 +225,15 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-
+       
         $this->call([
-            UsersSeeder::class
+            UsersSeeder::class,
+            AnnoncesSeeder::class,
+            AnnonceImagesSeeder::class,
+            AnnoncesValeursSeeder::class,
         ]);
+
+
+
     }
 }

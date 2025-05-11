@@ -31,6 +31,17 @@ new #[Layout('layouts.guest')] class extends Component
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form wire:submit="login">
+
+        <div style="margin-bottom: 1.25rem;">
+            <a href="/" style="display: flex; align-items: center; font-weight: bold; color: #0d6efd; text-decoration: none; font-size: 1.25rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" style="margin-right: 0.75rem;" viewBox="0 0 16 16">
+                    <path d="M8 .5l-6.5 6V14a1 1 0 001 1h3v-4a1 1 0 011-1h2a1 1 0 011 1v4h3a1 1 0 001-1V6.5L8 .5z"/>
+                    <path fill-rule="evenodd" d="M8 7.293l.646-.647a.5.5 0 01.708 0l.646.647c.442.442.707 1.03.707 1.707 0 .677-.265 1.265-.707 1.707L8 13.207l-2.293-2.5A2.5 2.5 0 015.707 9c0-.677.265-1.265.707-1.707l.646-.647a.5.5 0 01.708 0L8 7.293z" clip-rule="evenodd"/>
+                </svg>
+                Maroc Happyo
+            </a>
+        </div>
+        
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('numéro de téléphone')" />
@@ -58,16 +69,18 @@ new #[Layout('layouts.guest')] class extends Component
             </label>
         </div> --}}
 
-        <div class="flex items-center justify-end mt-4">
-            {{-- @if (Route::has('password.request')) --}}
-                {{-- <a class="underline text-sm text-gray-600  hover:text-gray-900  rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 " href="{{ route('password.request') }}" wire:navigate> --}}
-                    {{-- {{ __('Forgot your password?') }} --}}
-                {{-- </a> --}}
-            {{-- @endif --}}
-
+        <div class="flex items-center justify-between mt-4">
+            <div class="flex flex-col space-y-1">
+                <a href="{{ route('register') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
+                    {{ __('Créer un compte') }}
+                </a>
+            </div>
+        
             <x-primary-button class="ms-3">
-                {{ __('se connecter') }}
+                {{ __('Se connecter') }}
             </x-primary-button>
         </div>
+        
+        
     </form>
 </div>

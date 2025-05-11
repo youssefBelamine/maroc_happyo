@@ -12,6 +12,7 @@ use App\Models\ValeursChamp;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
+use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
 class AddAnnonce extends Component
 {
@@ -185,18 +186,29 @@ class AddAnnonce extends Component
     
         try {
             // 1. Save the annonce
-            $annonce = Announce::create([
-                'secteur_id' => $this->secteurId,
-                'categorie_id' => $this->selectedCategoryId,
-                'user_id' => Auth::id(),
-                'tel' => Auth::user()->tel, // Assuming you want to use the authenticated user's phone
-                // 'addresse' => Auth::user()->address, // Assuming you want to use the authenticated user's address
-                'prix' => $this->price,
-                'titre_annonce' => $this->title,
-                'texte_annonce' => $this->description,
-            ]);
-            // dd($annonce);
-    
+            // dd("here");
+
+                // dump('secteur_id = '.$this->secteurId);
+                // dump('categorie_id = '.$this->selectedCategoryId);
+                // dump('user_id = '.Auth::id());
+                // dump('tel = '.Auth::user()->tel); // Assuming you want to use the authenticated user's phone
+                // // 'addresse' => Auth::user()->address, // Assuming you want to use the authenticated user's address
+                // dump('prix = '.$this->price);
+                // dump('titre_annonce = '.$this->title);
+                // dump('texte_annonce = '.$this->description);
+                // dump();
+                
+                $annonce = Announce::create([
+                    'secteur_id' => $this->secteurId,
+                    'categorie_id' => $this->selectedCategoryId,
+                    'user_id' => Auth::id(),
+                    'tel' => Auth::user()->tel, // Assuming you want to use the authenticated user's phone
+                    // 'addresse' => Auth::user()->address, // Assuming you want to use the authenticated user's address
+                    'prix' => $this->price,
+                    'titre_annonce' => $this->title,
+                    'texte_annonce' => $this->description,
+                ]);
+
             // 2. Save dynamic fields (valeurs_champs)
             foreach ($this->fieldsValues as $champsCatId => $valeur) {
                 ValeursChamp::create([
@@ -205,12 +217,11 @@ class AddAnnonce extends Component
                     'valeur' => $valeur,
                 ]);
             }
-    
             // 3. Save images
             if ($this->images && !$this->skipImages) {
                 foreach ($this->images as $image) {
                     $filename = Str::slug($this->title) . '-' . now()->format('YmdHis') . '-' . Str::random(6) . '.' . $image->getClientOriginalExtension();
-                    $path = $image->storeAs('annonces', $filename, 'public');
+                    $path = "storage/".$image->storeAs('annonces', $filename, 'public');
     
                     AnnounceImage::create([
                         'announce_id' => $annonce->id,
@@ -225,7 +236,10 @@ class AddAnnonce extends Component
             $this->reset();
     
             $this->dispatch('annonce-created'); 
-            return redirect()->route('annonces.index'); // or wherever you want to redirect
+            
+            // dd("The announce was created successfully");
+
+            return redirect()->route('annonce'); // or wherever you want to redirect
         } catch (\Exception $e) {
             DB::rollBack();
             $this->dispatch('annonce-creation-failed', message: $e->getMessage());

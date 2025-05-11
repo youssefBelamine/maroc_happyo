@@ -8,6 +8,9 @@
         Livewire.on('annonceCreated', (data) => {
             alert(data.message);
         });
+        Livewire.on('annonce-creation-failed', (data) => {
+            alert(data.message);
+        });
         
         // Handle skip images confirmation
         Livewire.on('confirm-skip', (data) => {
@@ -58,6 +61,7 @@
                         <div class="card-body p-5">
                             <!-- FORM -->
                             <form wire:submit.prevent="publish" enctype="multipart/form-data" class="mb-4">
+                            @csrf
                                 <!-- Step 1: Informations -->
                                 @if ($step == 1)
     @if($errors->any())

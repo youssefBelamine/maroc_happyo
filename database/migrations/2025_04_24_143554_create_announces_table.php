@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string("addresse")->nullable();
             $table->string("tel");
             $table->double("prix");
-            $table->string("titre_annonce");
-            $table->string("texte_annonce");
+            $table->text("titre_annonce");
+            $table->text("texte_annonce");
             $table->foreignId('secteur_id')->constrained();
             $table->foreignId('categorie_id')->constrained();
             $table->foreignId('user_id')->constrained();

@@ -21,7 +21,10 @@ Route::view('dashboard', 'dashboard')
 require __DIR__.'/auth.php';
 
 
-Route::get("test", function (){return view("test");});
+Route::get("test", function (){
+    dd("1");
+    dd("2");
+});
 Route::get("cat", function (){
     $result = [];
 
