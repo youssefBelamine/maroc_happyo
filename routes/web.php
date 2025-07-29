@@ -18,6 +18,10 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth'])
     ->name('annonce');
 
+    Route::view('afficher-annonce/{id}', 'show-annonce')
+    ->middleware(['auth'])
+    ->name('show-annonce');
+
 require __DIR__.'/auth.php';
 
 
@@ -25,6 +29,7 @@ Route::get("test", function (){
     dd("1");
     dd("2");
 });
+
 Route::get("cat", function (){
     $result = [];
 
